@@ -14,10 +14,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     TextView tvInput;
     TextView tvOutput;
     String mostrar;
-    int valorA;
-    int valorB;
-    int resultado;
-    String operacion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,28 +22,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tvInput = findViewById(R.id.tv_input);
         tvOutput = findViewById(R.id.tv_output);
 
-
-        valorA = 0;
-        valorB = 0;
-        resultado = 0;
-        operacion = "";
     }
 
     public void clear(){
         tvInput.setText("");
         tvOutput.setText("");
-
-//        valorA = 0;
-//        valorB = 0;
-//        resultado = 0;
-//        operacion = "";
     }
 
-    public void reset(){
-        valorA=0;
-        resultado=0;
-        valorB=0;
-        operacion = "igualado";
+    public void borrarCaracter(){
+        String tvInputActual = tvInput.getText().toString();
+        tvInputActual = removeLastCharacter(tvInputActual);
+        tvInput.setText(tvInputActual);
+    }
+
+    public static String removeLastCharacter(String str) {
+        String result = null;
+        if ((str != null) && (str.length() > 0)) {
+            result = str.substring(0, str.length() - 1);
+        }
+        return result;
     }
 
     public void onClick(View view){
@@ -55,6 +48,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                Boton para limpiar pantalla
             case R.id.btn_clear:
                 clear();
+                break;
+                case R.id.btn_borrar:
+                borrarCaracter();
                 break;
 
 //                Numerales
@@ -100,8 +96,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
 //          Botones de calculos
-
-            //TODO: Agregar las posibilidad de si se empieza con una operación
             case R.id.btn_suma:
                 if (!tvInput.getText().toString().equals("")){
                     mostrar=tvInput.getText().toString();
@@ -189,12 +183,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                        Scriptable scriptable = rhino.initStandardObjects();
                        resultadoFinal = rhino.evaluateString(scriptable,mostrar,"javascript",1,null).toString();
                    }catch (Exception e){
-                       resultadoFinal="Pará pará boludo, que flashás haciendo  operciones?";
+                       resultadoFinal=""+getText(R.string.error_text);
                    }
 
                    tvOutput.setText(resultadoFinal);
                }else {
-                   Toast.makeText(this,"Digita un numero primero", Toast.LENGTH_SHORT).show();
+                   Toast.makeText(this,""+getText(R.string.advert_text), Toast.LENGTH_SHORT).show();
                }
 
 

@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">MainActivity</string>
+    <string name="app_name">Calculadora Makkpas</string>
+    <string name="error_text">Pará pará boludo, que flashás haciendo esas operciones?</string>
+    <string name="advert_text">Digita un número primero</string>
 </resources>

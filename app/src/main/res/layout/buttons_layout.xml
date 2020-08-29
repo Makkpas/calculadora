@@ -62,10 +62,8 @@
             android:textColor="@color/white"
             android:textSize="20sp"
 
-            android:text="<"
+            android:text="D"
             android:onClick="onClick"/>
-
-
 
         <Button
             android:id="@+id/btn_siete"
