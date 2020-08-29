@@ -17,7 +17,6 @@
 
         android:textSize="20sp"
         android:fontFamily="sans-serif-light"
-        android:text="232123"
         />
     <TextView
         android:id="@+id/tv_output"
@@ -31,7 +30,6 @@
 
         android:textSize="60sp"
         android:fontFamily="sans-serif-light"
-        android:text="232123"
         />
 
 </LinearLayout>

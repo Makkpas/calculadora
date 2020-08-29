@@ -3,9 +3,12 @@ package cr.ac.ucr.mainactivity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.mozilla.javascript.Context;
+import org.mozilla.javascript.Scriptable;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     TextView tvInput;
@@ -23,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tvInput = findViewById(R.id.tv_input);
         tvOutput = findViewById(R.id.tv_output);
 
-//        textView.setText("");
+
         valorA = 0;
         valorB = 0;
         resultado = 0;
@@ -31,11 +34,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void clear(){
-        valorA = 0;
-        valorB = 0;
-        resultado = 0;
-        operacion = "";
-//        textView.setText("");
+        tvInput.setText("");
+        tvOutput.setText("");
+
+//        valorA = 0;
+//        valorB = 0;
+//        resultado = 0;
+//        operacion = "";
     }
 
     public void reset(){
@@ -47,198 +52,152 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void onClick(View view){
         switch (view.getId()){
-            case R.id.btn_uno:
-                if(operacion.equals("igualado")){
-//                    textView.setText("1");
-                    operacion = "";
-                }else{
-//                    mostrar=textView.getText().toString()+"1";
-//                    textView.setText(mostrar);
-                }
-                break;
-            case R.id.btn_dos:
-                if(operacion.equals("igualado")){
-//                    textView.setText("2");
-                    operacion = "";
-                }else{
-//                    mostrar=textView.getText().toString()+"2";
-//                    textView.setText(mostrar);
-                }
-                break;
-            case R.id.btn_tres:
-                if(operacion.equals("igualado")){
-//                    textView.setText("3");
-                    operacion = "";
-                }else{
-//                    mostrar=textView.getText().toString()+"3";
-//                    textView.setText(mostrar);
-                }
-                break;
-            case R.id.btn_cuatro:
-                if(operacion.equals("igualado")){
-//                    textView.setText("4");
-                    operacion = "";
-                }else{
-//                    mostrar=textView.getText().toString()+"4";
-//                    textView.setText(mostrar);
-                }
-                break;
-            case R.id.btn_cinco:
-                if(operacion.equals("igualado")){
-//                    textView.setText("5");
-                    operacion = "";
-                }else{
-//                    mostrar=textView.getText().toString()+"5";
-//                    textView.setText(mostrar);
-                }
-                break;
-            case R.id.btn_seis:
-                if(operacion.equals("igualado")){
-//                    textView.setText("6");
-                    operacion = "";
-                }else{
-//                    mostrar=textView.getText().toString()+"6";
-//                    textView.setText(mostrar);
-                }
-                break;
-            case R.id.btn_siete:
-                if(operacion.equals("igualado")){
-//                    textView.setText("7");
-                    operacion = "";
-                }else{
-//                    mostrar=textView.getText().toString()+"7";
-//                    textView.setText(mostrar);
-                }
-                break;
-            case R.id.btn_ocho:
-                if(operacion.equals("igualado")){
-//                    textView.setText("8");
-                    operacion = "";
-                }else{
-//                    mostrar=textView.getText().toString()+"8";
-//                    textView.setText(mostrar);
-                }
-                break;
-            case R.id.btn_nueve:
-                if(operacion.equals("igualado")){
-//                    textView.setText("9");
-                    operacion = "";
-                }else{
-//                    mostrar=textView.getText().toString()+"9";
-//                    textView.setText(mostrar);
-                }
-                break;
-            case R.id.btn_cero:
-                if(operacion.equals("igualado")){
-//                    textView.setText("0");
-                    operacion = "";
-                }else{
-//                    mostrar=textView.getText().toString()+"0";
-//                    textView.setText(mostrar);
-                }
-                break;
+//                Boton para limpiar pantalla
             case R.id.btn_clear:
                 clear();
                 break;
+
+//                Numerales
+            case R.id.btn_cero:
+                mostrar=tvInput.getText().toString();
+                tvInput.setText(mostrar+"0");
+                break;
+            case R.id.btn_uno:
+                mostrar=tvInput.getText().toString();
+                tvInput.setText(mostrar+"1");
+                break;
+            case R.id.btn_dos:
+                mostrar=tvInput.getText().toString();
+                tvInput.setText(mostrar+"2");
+                break;
+            case R.id.btn_tres:
+                mostrar=tvInput.getText().toString();
+                tvInput.setText(mostrar+"3");
+                break;
+            case R.id.btn_cuatro:
+                mostrar=tvInput.getText().toString();
+                tvInput.setText(mostrar+"4");
+                break;
+            case R.id.btn_cinco:
+                mostrar=tvInput.getText().toString();
+                tvInput.setText(mostrar+"5");
+                break;
+            case R.id.btn_seis:
+                mostrar=tvInput.getText().toString();
+                tvInput.setText(mostrar+"6");
+                break;
+            case R.id.btn_siete:
+                mostrar=tvInput.getText().toString();
+                tvInput.setText(mostrar+"7");
+                break;
+            case R.id.btn_ocho:
+                mostrar=tvInput.getText().toString();
+                tvInput.setText(mostrar+"8");
+                break;
+            case R.id.btn_nueve:
+                mostrar=tvInput.getText().toString();
+                tvInput.setText(mostrar+"9");
+                break;
+
+//          Botones de calculos
+
+            //TODO: Agregar las posibilidad de si se empieza con una operación
             case R.id.btn_suma:
-                operacion="suma";
-                if(valorA == 0){
-//                    valorA = Integer.parseInt(textView.getText().toString());
-//                    textView.setText("");
-                }else {
-                    if(resultado == 0){
-//                        valorB = Integer.parseInt(textView.getText().toString());
-                        resultado = valorA + valorB;
-                    }else{
-//                        resultado = resultado + Integer.parseInt(textView.getText().toString());
-                    }
-                    mostrar=""+resultado;
-//                    textView.setText(mostrar);
+                if (!tvInput.getText().toString().equals("")){
+                    mostrar=tvInput.getText().toString();
+                    tvInput.setText(mostrar+"+");
+                }else{
+                    mostrar=tvInput.getText().toString();
+                    tvInput.setText(mostrar+"0+");
                 }
+
                 break;
+
             case R.id.btn_menos:
-                operacion="resta";
-                if(valorA == 0){
-//                    valorA = Integer.parseInt(textView.getText().toString());
-//                    textView.setText("");
-                }else {
-                    if(resultado == 0){
-//                        valorB = Integer.parseInt(textView.getText().toString());
-                        resultado = valorA - valorB;
-                    }else{
-//                        resultado = resultado - Integer.parseInt(textView.getText().toString());
-                    }
-                    mostrar=""+resultado;
-//                    textView.setText(mostrar);
+                if (!tvInput.getText().toString().equals("")){
+                    mostrar=tvInput.getText().toString();
+                    tvInput.setText(mostrar+"-");
+                }else{
+                    mostrar=tvInput.getText().toString();
+                    tvInput.setText(mostrar+"0-");
                 }
                 break;
+
             case R.id.btn_division:
-                operacion="division";
-                if(valorA == 0){
-//                    valorA = Integer.parseInt(textView.getText().toString());
-//                    textView.setText("");
-                }else {
-                    if(resultado == 0){
-//                        valorB = Integer.parseInt(textView.getText().toString());
-                        resultado = valorA / valorB;
-                    }else{
-//                        resultado = resultado / Integer.parseInt(textView.getText().toString());
-                    }
-                    mostrar=""+resultado;
-//                    textView.setText(mostrar);
+                if (!tvInput.getText().toString().equals("")){
+                    mostrar=tvInput.getText().toString();
+                    tvInput.setText(mostrar+"/");
+                }else{
+                    mostrar=tvInput.getText().toString();
+                    tvInput.setText(mostrar+"0/");
                 }
                 break;
             case R.id.btn_multiplicacion:
-                operacion="multiplicacion";
-                if(valorA == 0){
-//                    valorA = Integer.parseInt(textView.getText().toString());
-//                    textView.setText("");
-                }else {
-                    if(resultado == 0){
-//                        valorB = Integer.parseInt(textView.getText().toString());
-                        resultado = valorA * valorB;
-                    }else{
-//                        resultado = resultado * Integer.parseInt(textView.getText().toString());
-                    }
-                    mostrar=""+resultado;
-//                    textView.setText(mostrar);
+                if (!tvInput.getText().toString().equals("")){
+                    mostrar=tvInput.getText().toString();
+                    tvInput.setText(mostrar+"*");
+                }else{
+                    mostrar=tvInput.getText().toString();
+                    tvInput.setText(mostrar+"0*");
                 }
                 break;
 
+            case R.id.btn_poncentaje:
+                if (!tvInput.getText().toString().equals("")){
+                    mostrar=tvInput.getText().toString();
+                    tvInput.setText(mostrar+"%");
+                }else{
+                    mostrar=tvInput.getText().toString();
+                    tvInput.setText(mostrar+"0%");
+                }
+                break;
+
+            case R.id.btn_punto:
+                if (!tvInput.getText().toString().equals("")){
+                    mostrar=tvInput.getText().toString();
+                    tvInput.setText(mostrar+".");
+                }else{
+                    mostrar=tvInput.getText().toString();
+                    tvInput.setText(mostrar+"0.");
+                }
+                break;
+
+            case R.id.btn_parentesis_izquierdo:
+                mostrar=tvInput.getText().toString();
+                tvInput.setText(mostrar+"(");
+                break;
+
+            case R.id.btn_parentesis_derecho:
+                mostrar=tvInput.getText().toString();
+                tvInput.setText(mostrar+")");
+                break;
 
             case R.id.btn_igual:
-                switch(operacion){
-                    case "suma":
+               if (!tvInput.getText().toString().equals("")){
+                   mostrar = tvInput.getText().toString();
 
-//                        valorB = Integer.parseInt(textView.getText().toString());
-                        resultado=valorA+valorB;
-                        mostrar=""+resultado;
-//                        textView.setText(mostrar);
-                        reset();
+                   mostrar = mostrar.replaceAll("%", "/100");
 
-                        break;
-                    case "resta":
-//                        valorB = Integer.parseInt(textView.getText().toString());
-                        resultado=valorA-valorB;
-                        mostrar=""+resultado;
-//                        textView.setText(mostrar);
-                        reset();
-                        break;
-                    case "division":
-//                        valorB = Integer.parseInt(textView.getText().toString());
-                        resultado=valorA/valorB;
-                        mostrar=""+resultado;
-//                        textView.setText(mostrar);
-                        reset();
-                        break;
-                    case "multiplicacion":
-//                        valorB = Integer.parseInt(textView.getText().toString());
-                        resultado=valorA*valorB;
-                        mostrar=""+resultado;
-//                        textView.setText(mostrar);
-                        reset();
-                        break;
-                }
+                   Context rhino = Context.enter();
+
+                   rhino.setOptimizationLevel(-1);
+
+                   String resultadoFinal = "";
+
+
+                   try {
+                       Scriptable scriptable = rhino.initStandardObjects();
+                       resultadoFinal = rhino.evaluateString(scriptable,mostrar,"javascript",1,null).toString();
+                   }catch (Exception e){
+                       resultadoFinal="Pará pará boludo, que flashás haciendo  operciones?";
+                   }
+
+                   tvOutput.setText(resultadoFinal);
+               }else {
+                   Toast.makeText(this,"Digita un numero primero", Toast.LENGTH_SHORT).show();
+               }
+
+
                 break;
             default:
                 break;
